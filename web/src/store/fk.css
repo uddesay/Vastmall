@@ -208,3 +208,30 @@
 .ms-page-head p { margin-top: 2px; font-size: 14px; }
 .ms-page-head .ms-eyebrow { display: none; }
 .ms-crumbs { font-size: 13px; }
+
+/* footer: no big gap above it, logo directly on the dark band */
+.ms-footer { margin-top: 24px; }
+@media (min-width: 900px) { .ms-footer { margin-top: 28px; } }
+.ms-footer-brand img { padding: 0; background: none; border-radius: 0; height: 46px; }
+.ms-footer-grid { padding-block: 32px; }
+.fk-home { padding-bottom: 0; }
+.fk-assure { margin-bottom: 0; }
+
+/* tighter, more marketplace-like cards inside rows */
+.fk-row .ms-card-media { aspect-ratio: 1 / 1; }
+.fk-row .ms-card { padding: 10px 10px 12px; }
+.fk-section-head { padding: 12px 16px; }
+.fk-wrap { gap: 8px; }
+
+/* grid children may shrink below their content, so wide rows scroll instead of stretching the page */
+.fk-wrap > *, .fk-rowwrap, .fk-row, .fk-quads > * { min-width: 0; }
+.fk-home, .fk-wrap { max-width: 100%; }
+
+/* department photo tile that opens each "Best of" row */
+.fk-feature { position: relative; display: grid; align-content: end; padding: 16px; overflow: hidden; color: #fff; background: #1c4fd0; }
+.fk-feature img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform var(--t-slow) var(--ease); }
+.fk-feature::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgb(10 20 50 / .78), rgb(10 20 50 / .1) 65%); }
+.fk-feature > span { position: relative; z-index: 1; display: grid; gap: 8px; justify-items: start; }
+.fk-feature b { font: 700 clamp(18px, 1.8vw, 24px)/1.15 var(--display); }
+.fk-feature small { display: inline-flex; align-items: center; gap: 4px; padding: 7px 12px; border-radius: 2px; background: #fff; color: var(--ink); font: 700 12.5px var(--ui); }
+.fk-feature:hover img { transform: scale(1.05); }

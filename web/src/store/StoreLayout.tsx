@@ -273,7 +273,7 @@ function Frame() {
               <p className="ms-footer-statement">Explore. Shop. <em>Delight.</em></p>
               <p>Mobiles, electronics, fashion, home, beauty and grocery from verified sellers — delivered fast to your door.</p>
             </div>
-            <nav aria-label="Shop"><h4>Shop</h4><Link to="/grocery">Grocery</Link><Link to="/stores">All stores</Link>{stocked.filter((d) => d.slug !== 'grocery').slice(0, 7).map((d) => <Link key={d.id} to={`/shop?category=${d.slug}`}>{d.label}</Link>)}<Link to="/categories">All departments</Link></nav>
+            <nav aria-label="Shop"><h4>Shop</h4><Link to="/grocery">Grocery</Link><Link to="/stores">All stores</Link>{stocked.filter((d) => d.slug !== 'grocery').slice(0, 5).map((d) => <Link key={d.id} to={`/shop?category=${d.slug}`}>{d.label}</Link>)}<Link to="/categories">All departments</Link></nav>
             <nav aria-label="Help"><h4>Help</h4><Link to={signedIn ? '/account/orders' : '/signin'}>Track an order</Link><Link to="/help/shipping-and-returns">Delivery & returns</Link><Link to="/help/contact">Contact support</Link>{SUPPORT_PHONE && <><a href={SUPPORT_PHONE.tel}><Phone size={14} style={{ display: 'inline', verticalAlign: '-2px', marginRight: 6 }} />{SUPPORT_PHONE.display}</a><a href={SUPPORT_PHONE.whatsapp} target="_blank" rel="noreferrer">WhatsApp us</a></>}</nav>
             <nav aria-label="Company"><h4>Vastmall</h4><Link to="/help/about">About us</Link><Link to="/sell">Sell with us</Link><Link to="/seller">Seller panel</Link><Link to={signedIn ? '/account' : '/signin'}>{signedIn ? 'Your account' : 'Sign in'}</Link></nav>
           </div>

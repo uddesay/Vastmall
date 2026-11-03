@@ -51,7 +51,7 @@ function Carousel({ banners }: { banners: Banner[] }) {
 }
 
 /** A white section card with a title, "View all" and a horizontally scrolling product row. */
-function Row({ title, sub, to, products, loading }: { title: string; sub?: string; to: string; products: Product[]; loading: boolean }) {
+function Row({ title, sub, to, products, loading, feature }: { title: string; sub?: string; to: string; products: Product[]; loading: boolean; feature?: { image?: string; label: string } }) {
   const ref = useRef<HTMLDivElement>(null);
   const scroll = (dir: number) => ref.current?.scrollBy({ left: dir * ref.current.clientWidth * 0.85, behavior: 'smooth' });
   return (
@@ -62,7 +62,9 @@ function Row({ title, sub, to, products, loading }: { title: string; sub?: strin
       </header>
       <div className="fk-rowwrap">
         <button className="fk-rowarrow prev" aria-label="Scroll back" onClick={() => scroll(-1)}><ArrowLeft size={20} /></button>
-        <div className="fk-row" ref={ref}>{loading ? <CardSkeletons count={6} /> : products.map((p, k) => <ProductCard key={p.id} product={p} index={k % 6} />)}</div>
+        <div className="fk-row" ref={ref}>
+          {feature?.image && <Link to={to} className="fk-feature" aria-label={`Shop ${feature.label}`}><Img src={sized(feature.image, 600)} alt="" sizes="260px" /><span><b>{feature.label}</b><small>Shop now <ArrowRight size={13} /></small></span></Link>}
+          {loading ? <CardSkeletons count={6} /> : products.map((p, k) => <ProductCard key={p.id} product={p} index={k % 6} />)}</div>
         <button className="fk-rowarrow next" aria-label="Scroll forward" onClick={() => scroll(1)}><ArrowRight size={20} /></button>
       </div>
     </section>
@@ -71,7 +73,7 @@ function Row({ title, sub, to, products, loading }: { title: string; sub?: strin
 
 function DeptRow({ dept }: { dept: Department }) {
   const rows = useLoad(() => customerRequest<Product[]>(`/products?category=${dept.slug}&limit=12&sort=popularity`), [dept.slug]);
-  return <Row title={`Best of ${dept.label}`} sub={dept.blurb} to={dept.slug === 'grocery' ? '/grocery' : `/shop?category=${dept.slug}`} products={rows.data ?? []} loading={rows.loading} />;
+  return <Row title={`Best of ${dept.label}`} sub={dept.blurb} to={dept.slug === 'grocery' ? '/grocery' : `/shop?category=${dept.slug}`} products={rows.data ?? []} loading={rows.loading} feature={{ image: dept.image, label: dept.label }} />;
 }
 
 /** Four-up image card for one department (the "Top picks" tiles). */
